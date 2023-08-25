@@ -76,7 +76,7 @@ export default function App() {
             }}
           />
           {/* Manage Expense */}
-          <Stack.Screen name="Manage Expense" component={ManageExpense} />
+          <Stack.Screen name="ManageExpense" component={ManageExpense} />
         </Stack.Navigator>
       </NavigationContainer>
     </>
