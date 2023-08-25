@@ -1,20 +1,38 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, View } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+// createBottomTabNavigator
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import ManageExpense from "./screens/ManageExpense";
+import AllExpenses from "./screens/AllExpenses";
+import RecentExpenses from "./screens/RecentExpenses";
 
-export default function App() {
+const Stack = createNativeStackNavigator();
+const BottomTabs = createBottomTabNavigator();
+
+// create a function for the nested navigation
+function ExpenseOverview() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <BottomTabs.Navigator>
+      <BottomTabs.Screen name="All Expenses" component={AllExpenses} />
+      <BottomTabs.Screen name="RecentExpenses" component={RecentExpenses} />
+    </BottomTabs.Navigator>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default function App() {
+  return (
+    <>
+      <StatusBar style="auto" />
+      <NavigationContainer>
+        <Stack.Navigator>
+          {/* ExpensesOverview */}
+          <Stack.Screen name="Expenses Overview" component={ExpenseOverview} />
+          {/* Manage Expense */}
+          <Stack.Screen name="Manage Expense" component={ManageExpense} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </>
+  );
+}
