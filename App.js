@@ -10,6 +10,7 @@ import { GlobalStyles } from "./constants/styles";
 // Import Ionicons
 import { Ionicons } from "@expo/vector-icons";
 import IconButton from "./components/ui/IconButton";
+import ExpensesContextProvider from "./store/expenses-context";
 
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
@@ -64,35 +65,37 @@ function ExpenseOverview() {
 export default function App() {
   return (
     <>
-      <StatusBar style="auto" />
-      <NavigationContainer
-        screenOptions={{
-          headerStyle: {
-            backgroundColor: GlobalStyles.colors.primary500,
-          },
-          headerTintColor: "white",
-        }}
-      >
-        <Stack.Navigator>
-          {/* ExpensesOverview */}
-          <Stack.Screen
-            name="Expenses Overview"
-            component={ExpenseOverview}
-            options={{
-              headerShown: false,
-            }}
-          />
-          {/* Manage Expense */}
-          <Stack.Screen
-            name="ManageExpense"
-            component={ManageExpense}
-            options={{
-              title: "Manage Expenses",
-              presentation: "modal",
-            }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <StatusBar style="light" />
+      <ExpensesContextProvider>
+        <NavigationContainer
+          screenOptions={{
+            headerStyle: {
+              backgroundColor: GlobalStyles.colors.primary500,
+            },
+            headerTintColor: "white",
+          }}
+        >
+          <Stack.Navigator>
+            {/* ExpensesOverview */}
+            <Stack.Screen
+              name="Expenses Overview"
+              component={ExpenseOverview}
+              options={{
+                headerShown: false,
+              }}
+            />
+            {/* Manage Expense */}
+            <Stack.Screen
+              name="ManageExpense"
+              component={ManageExpense}
+              options={{
+                title: "Manage Expenses",
+                presentation: "modal",
+              }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </ExpensesContextProvider>
     </>
   );
 }
